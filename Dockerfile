@@ -5,7 +5,7 @@ WORKDIR /app
 RUN git clone https://github.com/matthewbentley/counter.git /app/
 RUN rm -rf .git .gitignore Dockerfile
 
-RUN python manage.py migrate
+#RUN python manage.py migrate
 
 EXPOSE 80
 
