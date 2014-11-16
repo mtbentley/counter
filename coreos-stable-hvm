@@ -51,7 +51,7 @@
             "ConstraintDescription" : "Must be a valid EC2 HVM instance type."
         },
         "ClusterSize": {
-            "Default": "5",
+            "Default": "3",
             "MinValue": "3",
             "MaxValue": "12",
             "Description": "Number of nodes in cluster (3-12).",
@@ -102,7 +102,7 @@
                     "Fn::GetAtt" : [ "CoreOSSecurityGroup", "GroupId" ]
                 }
             }
-                },
+        },
         "Ingress22": {
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
@@ -127,11 +127,25 @@
                 }
             }
         },
-
+        "CoreOSElasticLoadBalancer": {
+            "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+            "Properties": {
+                "AvailabilityZones" : {"Fn::GetAZs": ""},
+                "CrossZone" : true,
+                "LoadBalancerName": "coreos-ex-elb",
+                "Listeners" : [{
+                    "InstancePort" : "80",
+                    "InstanceProtocol" : "HTTP",
+                    "LoadBalancerPort" : "80",
+                    "Protocol" : "HTTP"
+                }]
+            }
+        },
         "CoreOSServerAutoScale": {
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
                 "AvailabilityZones": {"Fn::GetAZs": ""},
+                "LoadBalancerNames": [ { "Ref" : "CoreOSElasticLoadBalancer" } ],
                 "LaunchConfigurationName": {"Ref": "CoreOSServerLaunchConfig"},
                 "MinSize": "3",
                 "MaxSize": "12",

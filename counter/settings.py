@@ -13,6 +13,17 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+def env(key, default=None):
+    """Retrieves env vars and makes Python boolean replacements"""
+    val = os.getenv(key, default)
+
+    if val == 'True':
+        val = True
+    elif val == 'False':
+        val = False
+    return val
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -20,7 +31,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'sw1lo@08hdhr46teiofv(2+!uxvn(t8%=bu9n9fnb11fey9z11'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', True)
 
 TEMPLATE_DEBUG = True
 
