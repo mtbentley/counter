@@ -8,3 +8,5 @@ class Inc(models.Model):
         return str(self.number)
 
     number = models.IntegerField(default=0)
+
+    useless = models.CharField(default="RTFM", max_length=16)

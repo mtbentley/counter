@@ -11,5 +11,12 @@ def hi(request):
     except IndexError:
         inc = Inc(number=0)
         inc.save()
+    try:
+        request.session['count'] += 1
+    except KeyError:
+        request.session['count'] = 1
 
-    return HttpResponse(inc.number)
+    to_return = "Total: %s\n<br />\nSession: %s" % (inc.number,
+                                                    request.session['count'])
+
+    return HttpResponse(to_return)
