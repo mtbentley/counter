@@ -10,7 +10,13 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import etcd
+import netifaces
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+client = etcd.Client(
+    host=netifaces.gateways()['default'][netifaces.AF_INET][0]
+)
 
 
 def env(key, default=None):
@@ -39,7 +45,6 @@ ALLOWED_HOSTS = [
     '127.0.0.0',
     '*',
 ]
-
 
 # Application definition
 
@@ -84,7 +89,7 @@ DATABASES = {
         'NAME': 'django',
         'USER': "postgres",
         'PASSWORD': "",
-        'HOST': 'db',
+        'HOST': client.read('/db/addr').value,
         'PORT': '5432',
     }
 }
