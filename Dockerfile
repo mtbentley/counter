@@ -3,7 +3,7 @@ FROM matthewbentley/counter-base
 WORKDIR /app
 
 RUN git clone https://github.com/matthewbentley/counter.git /app/
-RUN rm -rf .git .gitignore Dockerfile
+RUN rm -rf .git .gitignore Dockerfile requirements.txt coreos-stable-hvm
 
 #RUN python manage.py migrate
 

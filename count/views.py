@@ -1,15 +1,15 @@
 from django.http import HttpResponse
 from count.models import Inc
-from from django
+from django.db import transaction
 
 
 @transaction.atomic
 def hi(request):
     try:
-        inc = Inc.objects.all()[0]
+        inc = Inc.objects.get(pk=1)
         inc.number += 1
         inc.save()
-    except IndexError:
+    except Inc.DoesNotExist:
         inc = Inc(number=1)
         inc.save()
     try:
