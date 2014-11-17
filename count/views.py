@@ -20,3 +20,6 @@ def hi(request):
                                                     request.session['count'])
 
     return HttpResponse(to_return)
+
+def low(request):
+    return HttpResponse("HI!")

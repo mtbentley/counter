@@ -130,6 +130,7 @@
         "CoreOSElasticLoadBalancer": {
             "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
             "Properties": {
+                "SecurityGroups": [{"Ref": "CoreOSSecurityGroup"}],
                 "AvailabilityZones" : {"Fn::GetAZs": ""},
                 "CrossZone" : true,
                 "LoadBalancerName": "coreos-ex-elb",
