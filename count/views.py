@@ -1,8 +1,9 @@
 from django.http import HttpResponse
 from count.models import Inc
+from from django
 
-# Create your views here.
 
+@transaction.atomic
 def hi(request):
     try:
         inc = Inc.objects.all()[0]
