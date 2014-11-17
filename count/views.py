@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from count.models import Inc
 from django.db import transaction
+from django.conf import settings
 
 
 @transaction.atomic
@@ -17,10 +18,10 @@ def hi(request):
     except KeyError:
         request.session['count'] = 1
 
-    to_return = "Total: %s\n<br />\nSession: %s" % (inc.number,
-                                                    request.session['count'])
+    to_return = "Total: %s\n<br />\nSession: %s<br /><br /><br />rev: %s" \
+                % (inc.number, request.session['count'], settings.REV)
 
     return HttpResponse(to_return)
 
 def low(request):
-    return HttpResponse("HI!")
+    return HttpResponse("HI!<br /><br /><br />rev: %s" % settings.REV)

@@ -14,6 +14,10 @@ import etcd
 import netifaces
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+f = open(BASE_DIR + "/rev")
+REV = f.readline()
+f.close()
+
 client = etcd.Client(
     host=netifaces.gateways()['default'][netifaces.AF_INET][0]
 )
