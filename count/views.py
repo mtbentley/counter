@@ -9,7 +9,7 @@ def hi(request):
         inc.number += 1
         inc.save()
     except IndexError:
-        inc = Inc(number=0)
+        inc = Inc(number=1)
         inc.save()
     try:
         request.session['count'] += 1

@@ -176,7 +176,7 @@
                                    "    - name: fleet.service\n",
                                    "      command: start\n",
                                    "  fleet:\n",
-                                   "    - metadata: instancetype=", {"Ref": "InstanceType"}
+                                   "    metadata: instancetype=", {"Ref": "InstanceType"}
                                ] ]
                                }
                              }
