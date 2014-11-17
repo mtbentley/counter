@@ -18,8 +18,9 @@ def hi(request):
     except KeyError:
         request.session['count'] = 1
 
-    to_return = "Total: %s\n<br />\nSession: %s<br /><br /><br />rev: %s" \
-                % (inc.number, request.session['count'], settings.REV)
+    to_return = "Total: %s\n<br />\nSession: %s<br /><br /><br />rev: %s<br />machine: %s" \
+        % (inc.number, request.session['count'], settings.REV,
+           settings.M_NAME)
 
     return HttpResponse(to_return)
 

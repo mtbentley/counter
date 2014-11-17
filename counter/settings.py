@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import etcd
+import json
 import netifaces
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -22,6 +23,10 @@ client = etcd.Client(
     host=netifaces.gateways()['default'][netifaces.AF_INET][0]
 )
 
+M_NAME = json.loads(
+    client.api_execute(
+        '/v2/stats/self', 'GET'
+    ).data.decode('UTF-8'))['name']
 
 def env(key, default=None):
     """Retrieves env vars and makes Python boolean replacements"""
