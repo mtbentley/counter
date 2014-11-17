@@ -11,4 +11,4 @@ EXPOSE 80
 
 ENV DEBUG False
 
-CMD ["/bin/bash", "-c", "cd /app/; python manage.py migrate && gunicorn -b 0.0.0.0:80 -w 3 counter.wsgi:application"]
+CMD ["/bin/bash", "-c", "cd /app/; python manage.py migrate && python manage.py runserver 0.0.0.0:80 "]
